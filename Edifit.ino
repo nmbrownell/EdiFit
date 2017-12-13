@@ -7,6 +7,9 @@
 #define powerLED 5
 #define baud 9600
 #define delim "="
+#define mpxA 10 // Multiplex pins for uart
+#define mpxA 11
+#define mpxA 12
 
 // Define state machine values
 enum State
@@ -85,6 +88,11 @@ void loop()
     break;
     
     case READ_GPS:
+      startGPSAccess();
+      delay(100);// simulate request GPS data
+      gpsLat = 100;
+      gpsLong = 100;
+      endGPSAccess();
       state = READ_TIME;
     break;
     
@@ -184,6 +192,22 @@ void writeParams()
 
 /*End Accelerometer*/
 
+
+/*GPS*/
+void startGPSAccess()
+{
+  digitalWrite(mpxA, 0);
+  digitalWrite(mpxB, 0);
+  digitalWrite(mpxC, 0);
+}
+
+void endGPSAccess()
+{
+  digitalWrite(mpxA, 1);
+  digitalWrite(mpxB, 1);
+  digitalWrite(mpxC, 1);
+}
+/*End GPS*/
 
 
 /*RTC*/
