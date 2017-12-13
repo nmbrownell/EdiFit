@@ -8,8 +8,8 @@
 #define baud 9600
 #define delim "="
 #define mpxA 10 // Multiplex pins for uart
-#define mpxA 11
-#define mpxA 12
+#define mpxB 11
+#define mpxC 12
 
 // Define state machine values
 enum State
@@ -53,8 +53,9 @@ int runCommand = '0'; //Bluetooth sends ASCII, so store as char
 // Initialize
 void setup()
 {
-  // Setup Bluetooth:
+  // Setup UART:
   Serial.begin(baud);
+  endGPSAccess(); // Multiplex to BT mode
  
   // Setup I2C bus:
   Wire.begin();
